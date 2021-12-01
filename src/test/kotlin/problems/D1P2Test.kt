@@ -4,7 +4,7 @@ import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class D1P1Test {
+class D1P2Test {
 
     private val input = """
         199
@@ -22,7 +22,14 @@ class D1P1Test {
     @Test
     fun simpleTest() {
         val inputNumbers = input.split("\n").map { it.trim().toInt() }
-        assertEquals(7, calcIncreases(inputNumbers))
+        assertEquals(5, calcThreeIncreases(inputNumbers))
     }
+
+    @Test
+    fun sumTest() {
+        val inputNumbers = listOf(3,0,1,1)
+        assertEquals(0, calcThreeIncreases(inputNumbers))
+    }
+
 
 }

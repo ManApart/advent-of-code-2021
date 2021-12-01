@@ -1,8 +1,9 @@
 import problems.calcIncreases
+import problems.calcThreeIncreases
 import java.io.File
 
 fun main(){
-    println(calcIncreases(parseInputToNumbers(1, 1)))
+    println(calcThreeIncreases(parseInputToNumbers(1, 1)))
 }
 
 private fun parseInputToNumbers(day: Int, problem: Int): List<Int> {
