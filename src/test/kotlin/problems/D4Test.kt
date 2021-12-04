@@ -3,6 +3,8 @@ package problems
 import parseInput
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class D4Test {
     private val baseBoardInput = """
@@ -56,6 +58,68 @@ class D4Test {
         )
 
         assertEquals(expected, Board(baseBoardInput))
+    }
+
+    @Test
+    fun markNumber() {
+        val board = Board(baseBoardInput)
+
+        board.mark(20)
+        board.mark(22)
+        board.mark(1)
+        board.mark(0)
+
+        assertTrue(board.isMarked(0,0))
+        assertTrue(board.isMarked(4,0))
+        assertTrue(board.isMarked(0,4))
+        assertFalse(board.isMarked(1,0))
+    }
+
+    @Test
+    fun isWinnerHorizontal() {
+        val board = Board(baseBoardInput)
+        assertFalse(board.isWinner())
+
+        with(board) {
+            mark(8)
+            mark(2)
+            mark(23)
+            mark(4)
+            mark(24)
+        }
+
+        assertTrue(board.isWinner())
+    }
+
+    @Test
+    fun isWinnerVertical() {
+        val board = Board(baseBoardInput)
+        assertFalse(board.isWinner())
+
+        with(board) {
+            mark(13)
+            mark(2)
+            mark(9)
+            mark(10)
+            mark(12)
+        }
+        assertTrue(board.isWinner())
+    }
+
+    @Test
+    fun getScore() {
+        val board = Board(baseBoardInput)
+        assertFalse(board.isWinner())
+
+        with(board) {
+            mark(13)
+            mark(2)
+            mark(9)
+            mark(10)
+            mark(12)
+        }
+        assertTrue(board.isWinner())
+        assertEquals(254, board.getScore())
     }
 
 }
