@@ -143,9 +143,19 @@ class D4Test {
         val boards = listOf(Board(baseBoardInput), Board(board2Input), Board(board3Input))
         val numbers = listOf(7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1)
         val bingo = Bingo(boards, numbers)
-        val (lastNumber, winner) = bingo.gameResult
+        val (lastNumber, winner) = bingo.play()
 
         assertEquals(4512, winner.getScore(lastNumber))
+    }
+
+    @Test
+    fun playToLose() {
+        val boards = listOf(Board(baseBoardInput), Board(board2Input), Board(board3Input))
+        val numbers = listOf(7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1)
+        val bingo = Bingo(boards, numbers)
+        val (lastNumber, loser) = bingo.playToLose()
+
+        assertEquals(1924, loser.getScore(lastNumber))
     }
 
 }

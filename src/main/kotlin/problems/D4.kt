@@ -7,7 +7,7 @@ fun main() {
     val numbers = input.first().split(",").map { it.toInt() }
     val boards = input.subList(1, input.size).joinToString("\n").split("\n\n").map { Board(it.split("\n")) }
     val bingo = Bingo(boards, numbers)
-    val (lastNumber, winner) = bingo.gameResult
+    val (lastNumber, winner) = bingo.playToLose()
 
     println(winner.getScore(lastNumber))
 }
@@ -52,13 +52,25 @@ data class Board(val squares: Map<Int, Map<Int, Square>>) {
 }
 
 data class Bingo(val boards: List<Board>, val steps: List<Int>) {
-    val gameResult = play()
 
-    private fun play(): Pair<Int, Board> {
+    fun play(): Pair<Int, Board> {
         steps.forEach { number ->
             boards.forEach { it.mark(number) }
             val winner = boards.firstOrNull { it.isWinner() }
             if (winner != null) return Pair(number, winner)
+        }
+        throw Exception("No winner found")
+    }
+
+    fun playToLose(): Pair<Int, Board> {
+        val unwonBoards = boards.toMutableList()
+        steps.forEach { number ->
+            boards.forEach { it.mark(number) }
+            val winners = unwonBoards.filter { it.isWinner() }
+            if (winners.isNotEmpty()) {
+                unwonBoards.removeAll(winners)
+                if (unwonBoards.isEmpty()) return Pair(number, winners.last())
+            }
         }
         throw Exception("No winner found")
     }
