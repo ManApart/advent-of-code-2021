@@ -44,6 +44,13 @@ class D3Test {
     }
 
     @Test
+    fun defaultCommon() {
+        val lines = listOf("10110", "10111")
+        assertEquals(1, mostCommonBit(lines, 4))
+        assertEquals(0, leastCommonBit(lines, 4))
+    }
+
+    @Test
     fun gammaRate() {
         val lines = input.parseInput()
         assertEquals(22, getGammaRate(lines))
