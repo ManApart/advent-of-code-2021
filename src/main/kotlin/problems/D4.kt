@@ -1,7 +1,15 @@
 package problems
 
-fun main() {
+import parseInputToStrings
 
+fun main() {
+    val input = parseInputToStrings(4, 1)
+    val numbers = input.first().split(",").map { it.toInt() }
+    val boards = input.subList(1, input.size).joinToString("\n").split("\n\n").map { Board(it.split("\n")) }
+    val bingo = Bingo(boards, numbers)
+    val (lastNumber, winner) = bingo.gameResult
+
+    println(winner.getScore(lastNumber))
 }
 
 data class Square(val number: Int, var isMarked: Boolean = false)
@@ -21,7 +29,7 @@ data class Board(val squares: Map<Int, Map<Int, Square>>) {
         return squares[y]!![x]!!.isMarked
     }
 
-    fun getScore(lastNumber: Int = 1): Int{
+    fun getScore(lastNumber: Int = 1): Int {
         return squareList.filter { !it.isMarked }.sumOf { it.number } * lastNumber
     }
 
@@ -40,6 +48,19 @@ data class Board(val squares: Map<Int, Map<Int, Square>>) {
         (0 until size).all { y ->
             isMarked(x, y)
         }
+    }
+}
+
+data class Bingo(val boards: List<Board>, val steps: List<Int>) {
+    val gameResult = play()
+
+    private fun play(): Pair<Int, Board> {
+        steps.forEach { number ->
+            boards.forEach { it.mark(number) }
+            val winner = boards.firstOrNull { it.isWinner() }
+            if (winner != null) return Pair(number, winner)
+        }
+        throw Exception("No winner found")
     }
 }
 
