@@ -1,5 +1,11 @@
 package problems
 
+import parseInputToNumbers
+
+fun main(){
+    println(calcThreeIncreases(parseInputToNumbers(1, 1)))
+}
+
 fun calcIncreases(measures: List<Int>): Int {
     return measures.windowed(2).map { window ->
         println("Comparing ${window.joinToString()}")

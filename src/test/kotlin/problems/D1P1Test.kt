@@ -1,5 +1,6 @@
 package problems
 
+import parseInputNumbers
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -21,7 +22,7 @@ class D1P1Test {
 
     @Test
     fun simpleTest() {
-        val inputNumbers = input.split("\n").map { it.trim().toInt() }
+        val inputNumbers = input.parseInputNumbers()
         assertEquals(7, calcIncreases(inputNumbers))
     }
 

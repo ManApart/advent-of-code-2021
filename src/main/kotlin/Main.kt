@@ -1,19 +1,21 @@
-import problems.calcIncreases
-import problems.calcThreeIncreases
 import java.io.File
 
-fun main(){
-    println(calcThreeIncreases(parseInputToNumbers(1, 1)))
-}
-
-private fun parseInputToNumbers(day: Int, problem: Int): List<Int> {
+fun parseInputToNumbers(day: Int, problem: Int): List<Int> {
     return parseInputToStrings(day, problem).map { it.toInt() }
 }
 
-private fun parseInputToLongs(day: Int, problem: Int): List<Long> {
+fun parseInputToLongs(day: Int, problem: Int): List<Long> {
     return parseInputToStrings(day, problem).map { it.toLong() }
 }
 
-private fun parseInputToStrings(day: Int, problem: Int): List<String> {
+fun parseInputToStrings(day: Int, problem: Int): List<String> {
     return File("./input/d${day}p$problem.txt").readLines()
+}
+
+fun String.parseInput(): List<String> {
+    return this.split("\n").map { it.trim() }
+}
+
+fun String.parseInputNumbers(): List<Int> {
+    return this.parseInput().map { it.toInt() }
 }
